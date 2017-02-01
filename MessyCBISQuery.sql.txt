@@ -1,0 +1,590 @@
+CREATE DATABASE cbis_icphDB;
+
+Use cbis_icphDB
+
+USE master
+DROP DATABASE cbis_icphDB
+
+--
+CREATE TABLE Departments(
+		id  INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		department VARCHAR(255) NOT NULL
+);
+
+INSERT INTO Departments(department) VALUES
+('Pharmacy'),('Laboratory'),('Billing')
+
+SELECT * FROM Departments
+
+-- 
+CREATE TABLE Employee_Types(
+		id INT IDENTITY(1,1)  NOT NULL PRIMARY KEY,
+		empType VARCHAR(255) NOT NULL
+);
+
+INSERT INTO Employee_Types(empType) VALUES
+('Nurse'),('Blabla'),('OneTwoThree')
+
+SELECT * FROM Employee_Types
+
+-- Change the Starting id of the employee
+CREATE TABLE Employees(
+		id INT IDENTITY(20170000,1)  NOT NULL PRIMARY KEY, 
+		firstName VARCHAR(255) NOT NULL,
+		middleName VARCHAR(255) NOT NULL,
+		lastName VARCHAR(255) NOT NULL,
+		gender CHAR(7) NOT NULL,
+		address VARCHAR(255) NOT NULL,
+		birthDate DATE NOT NULL,
+		empTypeId INT NOT NULL,
+		departmentId INT NOT NULL,
+		FOREIGN KEY(empTypeId) REFERENCES Employee_Types(id) ON DELETE CASCADE ON UPDATE CASCADE, 
+		FOREIGN KEY(departmentId) REFERENCES Departments(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Users(
+		id INT IDENTITY(20161000,1)  NOT NULL PRIMARY KEY,
+		username VARCHAR(255),
+		password VARCHAR(255),
+		employeeId INT NOT NULL,
+		dateCreated VARCHAR(255),
+		dateUpdated VARCHAR(255),
+		FOREIGN KEY(employeeId) REFERENCES Employees(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+SELECT * FROM Users
+
+CREATE TABLE Users_session_status(
+		id INT IDENTITY(1,1)  NOT NULL PRIMARY KEY,
+		userId INT NOT NULL,
+		timeLogin VARCHAR(50),
+		FOREIGN KEY(userId) REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Users_activity_logs(
+		id INT IDENTITY(1,1)  NOT NULL PRIMARY KEY,
+		userId INT NOT NULL,
+		dateLog VARCHAR(50),
+		timeLogin VARCHAR(50),
+		timeLogout VARCHAR(50),
+		FOREIGN KEY(userId) REFERENCES Users(id)
+);
+
+SELECT * FROM Users_activity_logs
+
+-- Administrator tables
+
+CREATE TABLE AdminUsers(
+		id INT IDENTITY(20162000,1) NOT NULL PRIMARY KEY,
+		username VARCHAR(255) NOT NULL,
+		password VARCHAR(255) NOT NULL,
+		createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+		lastupdate VARCHAR(255),
+		permission VARCHAR(5) NOT NULL
+);
+
+SELECT * FROM AdminUsers
+
+UPDATE AdminUsers SET password = '24B5893B9A28805F6C933A4528E60DF04E7C6BF51019F312DBA19BA5F1A0B23557E6C6EDBDDF8FD1894C99B11028DA3EEB4F796D6E536496EB86919FB52CDF6B' WHERE id = 1
+
+INSERT INTO AdminUsers(username, password,permission) VALUES
+('raniel','24B5893B9A28805F6C933A4528E60DF04E7C6BF51019F312DBA19BA5F1A0B23557E6C6EDBDDF8FD1894C99B11028DA3EEB4F796D6E536496EB86919FB52CDF6B','wrx')
+
+CREATE TABLE AdminSessionsStatus(
+		id INT IDENTITY(1,1)  NOT NULL PRIMARY KEY,
+		adminId INT NOT NULL,
+		timeLogin VARCHAR(50),
+		FOREIGN KEY(adminId) REFERENCES AdminUsers(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE AdminActivityLog(
+		id INT IDENTITY(1,1)  NOT NULL PRIMARY KEY,
+		adminId INT NOT NULL,
+		dateLog VARCHAR(50),
+		timeLogin VARCHAR(50),
+		timeLogout VARCHAR(50),
+		FOREIGN KEY(adminId) REFERENCES AdminUsers(id)
+);
+
+
+-- Medicines
+
+CREATE TABLE MedicineClassification(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		classification VARCHAR(255)
+);
+
+SELECT * FROM MedicineClassification
+
+INSERT INTO MedicineClassification(classification) VALUES
+('Allergies'),('Aminoglycosides'),('Meglitinides')
+
+CREATE TABLE MedicineCategory(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		category VARCHAR(255)
+);
+
+UPDATE MedicineCategory SET category = 'NONE'
+
+SELECT * FROM MedicineCategory
+
+INSERT INTO MedicineCategory(category) VALUES
+('Tablet'),('ONe'),('Two'),('Three'),('Four'),('Five')
+
+CREATE TABLE Medicines(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		brandName VARCHAR(255),
+		genericName VARCHAR(255),
+		unitCost DECIMAL(19,4),
+		categoryId INT NOT NULL,
+		medClassificationId INT NOT NULL,
+		FOREIGN KEY(categoryId) REFERENCES MedicineCategory(id),
+		FOREIGN KEY(medClassificationId) REFERENCES MedicineClassification(id),
+);
+
+SELECT * FROM MedicineCategory
+SELECT * FROM Medicines
+
+DELETE FROM Medicines WHERE id >=26
+
+SELECT unitCost FROM Medicines WHERE id=1
+
+INSERT INTO Medicines(brandName,genericName, unitCost, categoryId, medClassificationID)
+VALUES('Acetaminophen','Acetaminophen',45,1,1),
+('Adderall','Adderall',34,2,2),
+('Amoxicillin','Amoxicillin',65,3,3),
+('Atorvastatin','Atorvastatin',46,4,1),
+('Ativan','Ativan',64,5,2),
+('Amoxicillin','Amoxicillin',67,6,3)
+
+
+CREATE TABLE Suppliers(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		companyName VARCHAR(255),
+		name VARCHAR(255),
+		phoneNum VARCHAR(255),
+		email VARCHAR(255),
+		address VARCHAR(255),
+);
+
+INSERT INTO Suppliers(companyName, name, phoneNum, email,address)
+VALUES('Oneone','Raniel Garcia','3245234','ranielgarcia213@gmail.com','Tarlac, Tarlac City')
+
+SELECT * FROM Suppliers
+
+CREATE TABLE MedicinesStockBatch(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		lotNumber VARCHAR(50),
+		batchDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+		supplierId INT NOT NULL,
+		FOREIGN KEY(supplierId) REFERENCES Suppliers(id)
+);
+
+SELECT TOP 1 id FROM MedicinesStockBatch ORDER BY id DESC
+
+SELECT * FROM MedicinesStockBatch
+
+INSERT INTO MedicinesStockBatch(lotNumber, supplierId) VALUES('2017-3', 1)
+INSERT INTO MedicinesStockBatch(lotNumber, supplierId) VALUES('2017-4', 1)
+
+CREATE TABLE MedicinesStockBatchItems(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		medicineId INT NOT NULL,
+		quantity INT NOT NULL,
+		currentStocks INT NOT NULL,
+		expirationDate DATE,
+		batchId INT NOT NULL,
+		FOREIGN KEY(medicineId) REFERENCES Medicines(id),
+		FOREIGN KEY(batchId) REFERENCES MedicinesStockBatch(id)
+);
+
+SELECT * FROM MedicinesStockBatchItems
+
+INSERT INTO MedicinesStockBatchItems(medicineId, quantity, currentStocks, expirationDate, batchId)
+VALUES(1,1000,800,'17-June-31', 1),(2,1000,500,'17-June-31',1),(3,1000,600,'17-June-31',1),
+(4,1000,600,'17-June-31',1),(5,1000,600,'17-June-31',1),(6,1000,600,'17-June-31',1)
+
+INSERT INTO MedicinesStockBatchItems(medicineId, quantity, currentStocks, expirationDate, batchId)
+VALUES(13,1000,800,'17-June-31', 2),(14,1000,500,'17-June-31',2),(15,1000,600,'17-June-31',2),
+(16,1000,600,'17-June-31',2),(17,1000,600,'17-June-31',2),(18,1000,600,'17-June-31',2)
+
+SELECT * FROM Medicines
+select * from
+
+
+CREATE TABLE PharmacyStocks(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		quantity INT NOT NULL,
+		currentStocksQuantity INT NOT NULL,
+		medicineID INT NOT NULL,
+		batchID INT NOT NULL,
+		FOREIGN KEY(medicineID) REFERENCES Medicines(id),
+		FOREIGN KEY(batchID) REFERENCES MedicinesStockBatch(id)
+);
+
+SELECT * FROM PharmacyStocks
+INSERT INTO PharmacyStocks(quantity, currentStocksQuantity, medicineID, batchID) 
+VALUES(200,200,1,1),(500,500,2,1),(400,400,3,1),(400,400,4,1),(400,400,5,1),(400,400,6,1)
+
+INSERT INTO PharmacyStocks(quantity, currentStocksQuantity, medicineID, batchID) 
+VALUES(200,200,13,2),(500,500,14,2),(400,400,15,2),(400,400,16,2),(400,400,17,2),(400,400,18,2)
+
+
+CREATE TABLE PharmacyCashierTransactions(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		transID VARCHAR(255),
+		amount DECIMAL(19,4),
+		transDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+		transStatus INT,
+);
+
+SELECT * FROM PharmacyCashierTransactions
+
+UPDATE PharmacyCashierTransactions SET transStatus = 1 WHERE transID='201727'
+
+CREATE TABLE Temporary_PharmacyStockOutTransactions(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		pharCashierTransId INT NOT NULL,
+		transDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+		stockOutQuantity INT NOT NULL,
+		stockOutPrice DECIMAL(19,4),
+		whopay VARCHAR(20),
+		patientType CHAR(5),
+		medicineID INT NOT NULL,
+		userID INT NOT NULL
+);
+
+SELECT * FROM PharmacyCashierTransactions
+SELECT * FROM Temporary_PharmacyStockOutTransactions
+
+UPDATE PharmacyCashierTransactions SET transStatuS=1 where transID=201711
+
+DELETE FROM Temporary_PharmacyStockOutTransactions
+
+SELECT Temporary_PharmacyStockOutTransactions.medicineID, Medicines.brandName, Medicines.genericName, Temporary_PharmacyStockOutTransactions.stockOutQuantity,
+Temporary_PharmacyStockOutTransactions.stockOutPrice FROM Temporary_PharmacyStockOutTransactions, Medicines
+WHERE Temporary_PharmacyStockOutTransactions.medicineID=Medicines.id AND Temporary_PharmacyStockOutTransactions.pharCashierTransId=20175
+
+CREATE TABLE PharmacyStockOutTransactions(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		transDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+		stockOutQuantity INT NOT NULL,
+		stockOutPrice DECIMAL(19,4),
+		whopay VARCHAR(20),
+		patientType VARCHAR(5),
+		medicineID INT NOT NULL,
+		userID INT NOT NULL,
+		pharCashierTransID INT NOT NULL,
+		FOREIGN KEY(medicineID) REFERENCES Medicines(id),
+		FOREIGN KEY(userID) REFERENCES Users(id)
+)-- Get the patient to pharmacy transaction here
+
+
+SELECT * FROM PharmacyStockOutTransactions
+
+CREATE TABLE PatientPharmacyTransaction(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		patientId INT NOT NULL,
+		pharmacyStockOutTranId INT NOT NULL,
+		FOREIGN KEY(patientID) REFERENCES PatientID(id),
+		FOREIGN KEY(pharmacyStockOutTranId) REFERENCES PharmacyStockOutTransactions(id)
+); --- Unknown
+
+CREATE TABLE PharmacyRequests(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		requestDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+		requestStatus VARCHAR(30),
+		userID INT NOT NULL,
+		FOREIGN KEY(userID) REFERENCES Users(id)
+);
+
+
+CREATE TABLE PharmacyRequestsItems(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		medicineID INT NOT NULL,
+		medQuantity INT NOT NULL,
+		pharmaRequestID INT NOT NULL,
+		FOREIGN KEY(pharmaRequestID) REFERENCES PharmacyRequests(id)
+);
+
+CREATE TABLE PharmacyStockINTransactions(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		transDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+		pharmaRequestID INT NOT NULL,
+		FOREIGN KEY(pharmaRequestID) REFERENCES PharmacyRequests(id)
+); --- Unuse
+
+CREATE TABLE Room_types(
+		rm_type_ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		rm_type_name VARCHAR(255),
+		rm_price DECIMAL(19,4)
+);
+
+CREATE TABLE Rooms(
+		rm_ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		rm_No VARCHAR(255),
+		rm_type_ID INT NOT NULL,
+		FOREIGN KEY(rm_type_ID) REFERENCES Room_types(rm_type_ID)
+);
+
+SELECT * FROM Rooms
+
+CREATE TABLE patient(
+		pt_ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		pt_Fname VARCHAR(255),
+		pt_Mname VARCHAR(255),
+		pt_LName VARCHAR(255),
+);
+
+
+INSERT INTO patient(pt_Fname, pt_Mname, pt_LName) VALUES('One', 'Two', 'Three')
+INSERT INTO patient(pt_Fname, pt_Mname, pt_LName) VALUES('Four', 'Five', 'Six')
+INSERT INTO patient(pt_Fname, pt_Mname, pt_LName) VALUES('Seven', 'Eight', 'Nine')
+
+SELECT * FROM patient
+
+CREATE TABLE patient_admission(
+		pt_admit_Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		pt_status CHAR(20),
+		pt_ID INT NOT NULL,
+		pt_adm_startDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+		pt_adm_EndDate DATETIME,
+		rm_ID INT NOT NULL,
+		pt_id_price DECIMAL(19,4),
+		pt_admit_price DECIMAL(19,4),
+		FOREIGN KEY(pt_ID) REFERENCES patient(pt_ID),
+		FOREIGN KEY(rm_ID) REFERENCES Rooms(rm_ID),
+);
+
+SELECT TOP 1 patient.pt_LName, patient.pt_Fname,  patient.pt_Mname, Rooms.rm_No
+FROM Rooms, patient, patient_admission
+WHERE patient.pt_ID = patient_admission.pt_ID AND patient_admission.rm_ID = Rooms.rm_ID AND patient.pt_ID =1
+
+INSERT INTO patient_admission(pt_status, pt_ID, rm_ID, pt_id_price, pt_admit_price)
+VALUES(0, 1, 1, 1000, 10000),(0, 2, 1, 1000, 10000),(0, 1, 1, 1000, 10000)
+
+UPDATE patient_admission SET pt_status = 1
+
+SELECT * FROM patient_admission
+
+CREATE TABLE patient_medicine(
+		pt_med_ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		med_ID INT NOT NULL,
+		quantity INT NOT NULL,
+		totalprice DECIMAL(19,4),
+		pt_adm_ID INT NOT NULL,
+		FOREIGN KEY(pt_adm_ID) REFERENCES patient_admission(pt_admit_Id)
+);
+
+CREATE TABLE doctor_department(
+		dr_dept_ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		dr_dept_Name VARCHAR(255)
+);
+
+INSERT INTO doctor_department(dr_dept_Name) VALUES('ONE')
+SELECT * FROM doctor_department
+
+CREATE TABLE doctor(
+		dr_ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		dr_Name VARCHAR(255),
+		dr_dept_ID INT NOT NULL,
+		FOREIGN KEY(dr_dept_ID) REFERENCES doctor_department(dr_dept_ID)
+);
+
+INSERT INTO doctor(dr_Name, dr_dept_ID) VALUES('Dr. Raniel', 1)
+
+CREATE TABLE patient_doctor(
+		pt_dr_ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		dr_ID INT NOT NULL,
+		doctor_fee DECIMAL(19,4),
+		pt_adm_ID INT NOT NULL,
+		FOREIGN KEY(dr_ID) REFERENCES doctor(dr_ID),
+		FOREIGN KEY(pt_adm_ID) REFERENCES patient_admission(pt_admit_Id)
+);
+
+INSERT INTO patient_doctor(dr_ID, doctor_fee, pt_adm_ID) VALUES(1,1000, 4),(1,1000, 5),(1,1000, 6)
+
+SELECT * FROM patient_doctor
+
+CREATE TABLE services(
+		srvc_ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		srvc_Name VARCHAR(255),
+		srvc_Price Decimal(19,4)
+);
+
+INSERT INTO services(srvc_Name, srvc_Price) VALUES('ONE', 1000)
+
+CREATE TABLE patient_laboratory_services(
+		pt_lab_ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		pt_adm_ID INT NOT NULL,
+		srvc_ID INT NOT NULL,
+		FOREIGN KEY(pt_adm_ID) REFERENCES patient_admission(pt_admit_Id),
+		FOREIGN KEY(srvc_ID) REFERENCES services(srvc_ID)
+);
+
+INSERT INTO patient_laboratory_services(pt_adm_ID, srvc_ID) VALUES(4,1)
+INSERT INTO patient_laboratory_services(pt_adm_ID, srvc_ID) VALUES(5,1)
+INSERT INTO patient_laboratory_services(pt_adm_ID, srvc_ID) VALUES(6,1)
+
+CREATE TABLE Supplies(
+		sup_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		sup_name VARCHAR(255),
+		sup_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+		sup_price DECIMAL(19,4),
+		sup_qty INT NOT NULL,
+		sup_total DECIMAL(19,4),
+		pt_adm_ID INT NOT NULL,
+		FOREIGN KEY(pt_adm_ID) REFERENCES patient_admission(pt_admit_Id)
+);
+
+INSERT INTO Supplies(sup_name,sup_price,sup_qty,sup_total, pt_adm_ID)
+VALUES('TWO', 100,2,200,4),('TWO', 100,4,400,5),('THREE', 100,4,400,6)
+
+CREATE TABLE laboratory_transaction_out_patient(
+		trns_ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		Name VARCHAR(255),
+		Gender CHAR(10),
+		srvcID INT NOT NULL,
+		status INT NOT NULL,
+		date DATETIME DEFAULT CURRENT_TIMESTAMP,
+		FOREIGN KEY(srvcID) REFERENCES services(srvc_ID)
+);
+
+INSERT INTO laboratory_transaction_out_patient(Name, Gender, srvcID, status)
+VALUES('ONe', 'Male', 1, 0),('Two', 'Male', 1, 0),('Three', 'Female', 1, 0)
+
+
+CREATE TABLE CashierAuditTrail(
+		cash_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		cash_transac_no VARCHAR(255),
+		cash_transac_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+		cash_dept VARCHAR(255),
+		cash_total DECIMAL(19,4),
+		cash_actor_id INT NOT NULL,
+		FOREIGN KEY(cash_actor_id) REFERENCES Users(id)
+);
+
+SELECT * FROM CashierAuditTrail
+
+
+SELECT CashierAuditTrail.cash_transac_no, CashierAuditTrail.cash_transac_date, CashierAuditTrail.cash_dept,
+CashierAuditTrail.cash_total, Users.username
+FROM CashierAuditTrail, Users
+WHERE CashierAuditTrail.cash_actor_id=Users.id AND DATEDIFF(dd,CashierAuditTrail.cash_transac_date, '01/11/2017') = 0
+
+
+INSERT INTO CashierAuditTrail(cash_transac_no, cash_dept, cash_total, cash_actor_id) VALUES(20170, 'Pharmacy', 200, 20161000)
+SELECT * FROM CashierAuditTrail
+
+DELETE FROM CashierAuditTrail
+
+SELECT PharmacyCashierTransactions.transStatus, CashierAuditTrail.cash_transac_no, CashierAuditTrail.cash_transac_date, CashierAuditTrail.cash_dept, CashierAuditTrail.cash_total, Users.username
+FROM CashierAuditTrail, Users,PharmacyCashierTransactions
+WHERE CashierAuditTrail.cash_actor_id = Users.id AND (PharmacyCashierTransactions.transStatus = 1 OR PharmacyCashierTransactions.transStatus = 2)
+AND DATEDIFF(dd, CashierAuditTrail.cash_transac_date, '2017-01-11') = 0 AND CashierAuditTrail.cash_transac_no = PharmacyCashierTransactions.transID
+
+SELECT * FROM PharmacyCashierTransactions
+
+-- Debugging quereis
+
+SELECT * FROM PharmacyCashierTransactions
+
+
+
+SELECT * FROM patient_admission
+
+UPDATE patient_admission SET pt_adm_EndDate = '2017-06-02'
+
+SELECT patient_admission.pt_admit_Id, patient.pt_Fname, patient.pt_Mname, patient.pt_LName, Rooms.rm_No,
+patient_admission.pt_adm_startDate,patient_admission.pt_adm_EndDate, patient_admission.pt_status
+FROM patient_admission, patient, Rooms
+WHERE patient_admission.pt_adm_EndDate IS NOT NULL AND patient_admission.pt_ID = patient.pt_ID AND patient_admission.rm_ID = Rooms.rm_ID AND patient_admission.pt_status = 1
+
+
+-- ER Pharmacy Tables
+
+CREATE TABLE ERPharmacyStocks(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		quantity INT NOT NULL,
+		currentStocksQuantity INT NOT NULL,
+		medicineID INT NOT NULL,
+		batchID INT NOT NULL,
+		FOREIGN KEY(medicineID) REFERENCES Medicines(id),
+		FOREIGN KEY(batchID) REFERENCES MedicinesStockBatch(id)
+);
+
+SELECT * FROM ERPharmacyStocks
+
+SELECT quantity, currentStocksQuantity FROM ERPharmacyStocks WHERE id=1
+
+
+INSERT INTO ERPharmacyStocks(quantity, currentStocksQuantity, medicineID, batchID) 
+VALUES(200,200,1,1),(500,500,2,1),(400,400,3,1),(400,400,4,1),(400,400,5,1),(400,400,6,1)
+
+INSERT INTO ERPharmacyStocks(quantity, currentStocksQuantity, medicineID, batchID) 
+VALUES(200,200,13,2)
+
+select * from Medicines
+
+CREATE TABLE ERPharmacySales(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		transactionNO VARCHAR(255),
+		totalPurchaseAmount DECIMAL(19,4),
+		transDate DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO ERPharmacySales(transactionNO, totalPurchaseAmount) VALUES('',0.0)
+
+SELECT * FROM ERPharmacySales
+
+
+DELETE FROM ERPharmacySales
+
+SELECT TOP 1 id FROM ERPharmacySales ORDER BY id DESC
+
+CREATE TABLE ERPharmacyStockOutTransactions(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		transDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+		stockOutQuantity INT NOT NULL,
+		stockOutPrice DECIMAL(19,4),
+		transactionNO VARCHAR(255),
+		whopay VARCHAR(20),
+		patientType VARCHAR(5),
+		medicineID INT NOT NULL,
+		userID INT NOT NULL,
+		FOREIGN KEY(medicineID) REFERENCES Medicines(id),
+		FOREIGN KEY(userID) REFERENCES Users(id)
+)-- Get the patient to pharmacy transaction here
+
+SELECT * FROM patient_medicine
+
+DROP TABLE ERPharmacyStockOutTransactions
+
+INSERT INTO ERPharmacyStockOutTransactions(stockOutQuantity, stockOutPrice, transactionNO, whopay,patientType, medicineID, userID)
+VALUES()
+
+SELECT * FROM ERPharmacyStockOutTransactions
+
+CREATE TABLE ERPharmacyRequests(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		requestDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+		requestStatus VARCHAR(30),
+		userID INT NOT NULL,
+		FOREIGN KEY(userID) REFERENCES Users(id)
+);
+
+SELECT * FROM ERPharmacyRequests
+SELECT * FROM ERPharmacyRequestsItems
+
+SELECT * FROM PharmacyRequests
+SELECT * FROM PharmacyRequestsItems
+
+DROP TABLE ERPharmacyRequestsItems
+
+CREATE TABLE ERPharmacyRequestsItems(
+		id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+		medicineID INT NOT NULL,
+		medQuantity INT NOT NULL,
+		erpharmaRequestID INT NOT NULL,
+		FOREIGN KEY(erpharmaRequestID) REFERENCES ERPharmacyRequests(id)
+);

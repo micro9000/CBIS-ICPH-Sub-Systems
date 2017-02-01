@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CDC14AA8-A585-41CD-9BE9-B8CD256D2E59}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>AdminDashboard.My.MyApplication</StartupObject>
+    <RootNamespace>AdminDashboard</RootNamespace>
+    <AssemblyName>AdminDashboard</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>AdminDashboard.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>AdminDashboard.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddEmployeeFrm.Designer.vb">
+      <DependentUpon>AddEmployeeFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AddEmployeeFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddRemoveEmployeeMainFrm.Designer.vb">
+      <DependentUpon>AddRemoveEmployeeMainFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AddRemoveEmployeeMainFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddRemoveUsersMainFrm.Designer.vb">
+      <DependentUpon>AddRemoveUsersMainFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AddRemoveUsersMainFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminAuthentication.vb" />
+    <Compile Include="AdminSettingsController.vb" />
+    <Compile Include="AdminSettingsFrm.Designer.vb">
+      <DependentUpon>AdminSettingsFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AdminSettingsFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdmissionBillingCashierTransController.vb" />
+    <Compile Include="Authentication.vb" />
+    <Compile Include="CashierPharmacyController.vb" />
+    <Compile Include="CashierReportController.vb" />
+    <Compile Include="CashierReportsFrm.Designer.vb">
+      <DependentUpon>CashierReportsFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CashierReportsFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DepartmentControll.vb" />
+    <Compile Include="DepartmentsFrm.Designer.vb">
+      <DependentUpon>DepartmentsFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DepartmentsFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeesManagement.vb" />
+    <Compile Include="EmployeeTypeController.vb" />
+    <Compile Include="EmployeeTypesFrm.Designer.vb">
+      <DependentUpon>EmployeeTypesFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeTypesFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ERPharmacyFrm.Designer.vb">
+      <DependentUpon>ERPharmacyFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ERPharmacyFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ERPharmacySalesReportFrm.Designer.vb">
+      <DependentUpon>ERPharmacySalesReportFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ERPharmacySalesReportFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaboratoryTransactionsFrm.Designer.vb">
+      <DependentUpon>LaboratoryTransactionsFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="LaboratoryTransactionsFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LaboratoryTransController.vb" />
+    <Compile Include="LoginFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginFrm.Designer.vb">
+      <DependentUpon>LoginFrm.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenusFrm.Designer.vb">
+      <DependentUpon>MenusFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MenusFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="PharmacyFrm.Designer.vb">
+      <DependentUpon>PharmacyFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PharmacyFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PharmacySalesTransactionReportsFrm.Designer.vb">
+      <DependentUpon>PharmacySalesTransactionReportsFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PharmacySalesTransactionReportsFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PharmacyStocksController.vb" />
+    <Compile Include="PharmacyTransSalesController.vb" />
+    <Compile Include="CashierPharmacyFrm.Designer.vb">
+      <DependentUpon>CashierPharmacyFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CashierPharmacyFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RoomsController.vb" />
+    <Compile Include="RoomsFrm.Designer.vb">
+      <DependentUpon>RoomsFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="RoomsFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesReportController.vb" />
+    <Compile Include="Security.vb" />
+    <Compile Include="SqlControl.vb" />
+    <Compile Include="StockRoomController.vb" />
+    <Compile Include="StockRoomFrm.Designer.vb">
+      <DependentUpon>StockRoomFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="StockRoomFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StocksController.vb" />
+    <Compile Include="SupplierFrm.Designer.vb">
+      <DependentUpon>SupplierFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SupplierFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdmissionBillingCashierTransFrm.Designer.vb">
+      <DependentUpon>AdmissionBillingCashierTransFrm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="AdmissionBillingCashierTransFrm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UsersManagement.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AddEmployeeFrm.resx">
+      <DependentUpon>AddEmployeeFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddRemoveEmployeeMainFrm.resx">
+      <DependentUpon>AddRemoveEmployeeMainFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddRemoveUsersMainFrm.resx">
+      <DependentUpon>AddRemoveUsersMainFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminSettingsFrm.resx">
+      <DependentUpon>AdminSettingsFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CashierReportsFrm.resx">
+      <DependentUpon>CashierReportsFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DepartmentsFrm.resx">
+      <DependentUpon>DepartmentsFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeeTypesFrm.resx">
+      <DependentUpon>EmployeeTypesFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ERPharmacyFrm.resx">
+      <DependentUpon>ERPharmacyFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ERPharmacySalesReportFrm.resx">
+      <DependentUpon>ERPharmacySalesReportFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LaboratoryTransactionsFrm.resx">
+      <DependentUpon>LaboratoryTransactionsFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginFrm.resx">
+      <DependentUpon>LoginFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenusFrm.resx">
+      <DependentUpon>MenusFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PharmacyFrm.resx">
+      <DependentUpon>PharmacyFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PharmacySalesTransactionReportsFrm.resx">
+      <DependentUpon>PharmacySalesTransactionReportsFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CashierPharmacyFrm.resx">
+      <DependentUpon>CashierPharmacyFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RoomsFrm.resx">
+      <DependentUpon>RoomsFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StockRoomFrm.resx">
+      <DependentUpon>StockRoomFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SupplierFrm.resx">
+      <DependentUpon>SupplierFrm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdmissionBillingCashierTransFrm.resx">
+      <DependentUpon>AdmissionBillingCashierTransFrm.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SEO-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stock-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stocks-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Network-Globe-Connected-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Actions-view-history-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Administrator-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-close-128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Inventory-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Custom-Icon-Design-Flatastic-5-Sales-report.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fasticon-Fast-Icon-Users-Add-user.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fasticon-Fast-Icon-Users-Remove-user.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Custom-Icon-Design-Flatastic-4-Male-user-info.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Custom-Icon-Design-Pretty-Office-3-Edit-Male-User.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Custom-Icon-Design-Flatastic-4-Male-user-remove.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Custom-Icon-Design-Flatastic-4-Male-user-search.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Custom-Icon-Design-Flatastic-4-Male-user-add.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Aha-Soft-Free-Large-Boss-Admin.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logout-512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\people-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graphicloads-Polygon-Refresh-4.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OK.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Search.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\view_sales.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sales.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\laboratory-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\admission.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\admission1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Load.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\filter.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Print.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading111.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Generate.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cashier-2-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\room.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\billing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cashier-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pharmaceutical_Drugs-512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stock2-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sales-report-icon.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
